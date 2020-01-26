@@ -4,7 +4,8 @@
   :license {:name "MIT License"
             :url "https://opensource.org/licenses/MIT"}
 
-  :plugins [[lein-cljfmt "0.6.4"]]
+  :plugins [[lein-cljfmt "0.6.4"]
+            [lein-eftest "0.5.9"]]
 
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [http-kit "2.4.0-alpha4"]
