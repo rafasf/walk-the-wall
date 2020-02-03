@@ -7,14 +7,20 @@
   {:key "PROJ-123"
    :fields {:assignee {:displayName "Bob Jane"}
             :status {:name "In Development"}
-            :custom_epic "EPC-100"
+            :customfield_11500 "EPC-100"
             :summary "Story summary here"}})
 
-(deftest stories
-  (testing "mapping between issue and story"
-    (is (= {:id "PROJ-123"
-            :title "Story summary here"
-            :assignee "Bob Jane"
-            :feature {:id "EPC-100"}
-            :status "In Development"}
-           (story-from an-issue :custom_epic)))))
+(deftest project-stories
+  (testing "returns stories"
+    (with-redefs [search (fn [cfg crit f] [an-issue an-issue])]
+      (is (= [{:id "PROJ-123"
+               :title "Story summary here"
+               :assignee "Bob Jane"
+               :feature {:id "EPC-100"}
+               :status "In Development"}
+              {:id "PROJ-123"
+               :title "Story summary here"
+               :assignee "Bob Jane"
+               :feature {:id "EPC-100"}
+               :status "In Development"}]
+             (stories {}))))))
