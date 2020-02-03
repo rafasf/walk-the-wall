@@ -1,5 +1,6 @@
 (ns walk-the-wall.tracker.jira.client
   (:require [org.httpkit.client :as client]
+            [clojure.string :refer [lower-case]]
             [cheshire.core :refer [parse-string]]))
 
 (defn to-issue [response]
@@ -13,3 +14,18 @@
                                      "fields" fields}
                       :accept :json})
         to-issue)))
+
+(defn to-epic-field [all-fields]
+  (let [fields (->> all-fields
+                    (filter #(= "epic link" (lower-case (get % :name))))
+                    (map #(get % :id)))]
+    (keyword (first fields))))
+
+(defn epic-field-name [client-config]
+  (let [url (str (client-config :base-url) "/field")]
+    (-> @(client/get url
+                     {:headers (client-config :headers)
+                      :accept :json})
+        :body
+        (parse-string true)
+        to-epic-field)))
