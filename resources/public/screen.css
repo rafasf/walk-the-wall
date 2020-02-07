@@ -1,0 +1,21 @@
+.cards {
+    display: flex;
+    overflow-x: auto;
+
+    height: 80vh;
+    align-items: center;
+
+    scroll-snap-type: x mandatory;
+}
+
+.item {
+    width: 100vw;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+}
+
+.card {
+    width: 80vw;
+    margin: 0 auto;
+    padding: 10px;
+}

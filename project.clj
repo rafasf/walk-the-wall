@@ -19,6 +19,8 @@
 
   :main walk-the-wall.core
 
+  :resource-paths ["resources"]
+
   :profiles {
              :test {:dependencies [[http-kit.fake "0.2.1"]]}}
   :repl-options {:init-ns walk-the-wall.core})

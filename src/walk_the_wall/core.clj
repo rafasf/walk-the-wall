@@ -9,7 +9,8 @@
             [ring.middleware.not-modified :refer [wrap-not-modified]]
             [compojure.handler :as handler]
             [walk-the-wall.tracker.jira.jira :as jira]
-            [walk-the-wall.available-projects :refer [available-boards-in]]))
+            [walk-the-wall.available-projects :refer [available-boards-in]]
+            [walk-the-wall.wall :refer [wall-for]]))
 
 (defn env [variable]
   (System/getenv variable))
@@ -23,7 +24,12 @@
 (defroutes all-routes
   (GET "/" [] {:status 200
                :headers {"Content-Type" "text/html"}
-               :body (available-boards-in configs)}))
+               :body (available-boards-in configs)})
+  (GET "/projects" [board] {:status 200
+                            :headers {"Content-Type" "text/html"}
+                            :body (wall-for (jira/stories (->> configs
+                                                              (filter #(= board (get % :name)))
+                                                              first)))}))
 
 (defn -main []
   (jetty/run-jetty
