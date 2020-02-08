@@ -12,16 +12,15 @@
   {:base-url "http://jira.local/rest/api/latest"
    :headers {"Authorization" "Basic token!"}})
 
-(deftest issue-search
+(deftest search-test
   (testing "returns issues for criteria"
     (with-fake-http [{:url "http://jira.local/rest/api/latest/search"
                       :method :get
                       :headers {"Authorization" "Basic token!"}
-                      :query-params {"jql" "criteria"
-                                     "fields" "selected,fields"}}
+                      :query-params {"jql" "criteria"}}
                      {:status 200
                       :body jira-response}]
-      (let [issues (search http-client-config "criteria" "selected,fields")]
+      (let [issues (search http-client-config "criteria")]
         (is (= [{:fields {:assignee {:displayName "person"}
                           :status {:name "testing"}
                           :summary "summary"}}]
@@ -37,3 +36,5 @@
                                               {:id "issuetype" :name "Issue Type"}])}]
       (let [field-name (epic-field-name http-client-config)]
         (is (= :custom_923 field-name))))))
+
+

@@ -6,12 +6,11 @@
 (defn to-issue [response]
   (-> response :body (parse-string true) :issues))
 
-(defn search [client-config criteria fields]
+(defn search [client-config criteria]
   (let [url (str (client-config :base-url) "/search")]
     (-> @(client/get url
                      {:headers (client-config :headers)
-                      :query-params {"jql" criteria
-                                     "fields" fields}
+                      :query-params {"jql" criteria}
                       :accept :json})
         to-issue)))
 

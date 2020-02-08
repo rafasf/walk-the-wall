@@ -16,5 +16,5 @@
   (let [http-client-config {:base-url (config :base-url)
                             :headers {"Authorization" (str "Basic " (config :token))}}
         criteria (config :criteria)]
-    (->> (client/search http-client-config criteria "")
+    (->> (client/search http-client-config criteria)
          (map (partial to-story :customfield_11500)))))

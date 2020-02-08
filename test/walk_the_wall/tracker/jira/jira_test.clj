@@ -12,7 +12,7 @@
 
 (deftest project-stories
   (testing "returns stories"
-    (with-redefs [search (fn [cfg crit f] [an-issue an-issue])]
+    (with-redefs [search (fn [cfg crit] [an-issue an-issue])]
       (is (= [{:id "PROJ-123"
                :title "Story summary here"
                :assignee "Bob Jane"
