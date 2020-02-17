@@ -1,0 +1,6 @@
+[
+ {:name "project"
+  :base-url "https://tracker.com"
+  :criteria "a = b"
+  :token "WW_JIRA_TOKEN",
+  :status-flow ["To do" "Ready Dev" "Dev" "Done"]}]
