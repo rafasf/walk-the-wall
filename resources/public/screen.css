@@ -1,3 +1,8 @@
+.projects {
+    margin: 0 auto;
+    width: 300px;
+}
+
 .cards {
     display: flex;
     overflow-x: auto;

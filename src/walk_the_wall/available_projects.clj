@@ -13,7 +13,7 @@
     (include-css "//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css")
     (include-css "screen.css")]
    [:form {:action "/projects"}
-    [:fieldset
+    [:fieldset {:class "projects"}
      [:label {:for "board"} "Select a board"]
      [:select {:id "board" :name "board"}
       (map to-option configs)]
