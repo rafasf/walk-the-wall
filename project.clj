@@ -21,6 +21,8 @@
 
   :resource-paths ["resources"]
 
+  :eftest {:multithread? :false}
+  
   :profiles {
              :test {:dependencies [[http-kit.fake "0.2.1"]]}}
   :repl-options {:init-ns walk-the-wall.core})
