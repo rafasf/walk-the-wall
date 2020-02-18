@@ -23,4 +23,13 @@
                :assignee "Bob Jane"
                :feature {:id "EPC-100"}
                :status "In Development"}]
-             (stories {}))))))
+             (stories {:status-priority {"in development" 0}})))))
+
+  (testing "returns ordered by status"
+    (let [stories [{:id "A" :status "In Development"}
+                   {:id "B" :status "To do"}
+                   {:id "C" :status "In testing"}]]
+      (is (= [{:id "C" :status "In testing"}
+              {:id "A" :status "In Development"}
+              {:id "B" :status "To do"}]
+             (ordered {"in testing" 0 "in development" 1 "to do" 2} stories))))))

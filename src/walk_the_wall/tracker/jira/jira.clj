@@ -1,5 +1,6 @@
 (ns walk-the-wall.tracker.jira.jira
-  (:require [walk-the-wall.tracker.jira.client :as client]))
+  (:require [clojure.string :refer [trim lower-case]]
+            [walk-the-wall.tracker.jira.client :as client]))
 
 (defn- to-story [epic-field-name issue]
   (let [{id :key, {epic-number epic-field-name
@@ -12,9 +13,17 @@
      :status (status :name)
      :id id}))
 
+(defn- status-name [priorities story]
+  (let [name (story :status)]
+    (get priorities (lower-case (trim name)))))
+
+(defn ordered [status-priority stories]
+  (sort-by (partial status-name status-priority) stories))
+
 (defn stories [config]
   (let [http-client-config {:base-url (config :base-url)
                             :headers {"Authorization" (str "Basic " (config :token))}}
         criteria (config :criteria)]
     (->> (client/search http-client-config criteria)
-         (map (partial to-story :customfield_11500)))))
+         (map (partial to-story :customfield_11500))
+         (ordered (config :status-priority)))))
