@@ -1,6 +1,6 @@
 (defproject walk-the-wall "0.1.0"
   :description "Walk the wall"
-  :url ""
+  :url "https://github.com/rafasf/walk-the-wall"
   :license {:name "MIT License"
             :url "https://opensource.org/licenses/MIT"}
 
@@ -22,7 +22,7 @@
   :resource-paths ["resources"]
 
   :eftest {:multithread? :false}
-  
+
   :profiles {
              :test {:dependencies [[http-kit.fake "0.2.1"]]}}
   :repl-options {:init-ns walk-the-wall.core})
