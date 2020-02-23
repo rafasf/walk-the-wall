@@ -8,18 +8,12 @@
             [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.not-modified :refer [wrap-not-modified]]
             [compojure.handler :as handler]
+            [walk-the-wall.config :refer [load-from]]
             [walk-the-wall.tracker.jira.jira :as jira]
             [walk-the-wall.available-projects :refer [available-boards-in]]
             [walk-the-wall.wall :refer [wall-for]]))
 
-(defn env [variable]
-  (System/getenv variable))
-
-(def configs
-  (->> (io/resource "wall_config.edn")
-       slurp
-       edn/read-string
-       (map #(update % :token env))))
+(def configs (load-from "wall_config.edn"))
 
 (defroutes all-routes
   (GET "/" [] {:status 200
