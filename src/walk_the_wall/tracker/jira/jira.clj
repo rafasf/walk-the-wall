@@ -20,10 +20,14 @@
 (defn ordered [status-priority stories]
   (sort-by (partial status-name status-priority) stories))
 
+(defn view-url [base-url story]
+  (assoc story :view-url (str base-url "/browse/" (story :id))))
+
 (defn stories [config]
   (let [http-client-config {:base-url (config :base-url)
                             :headers {"Authorization" (str "Basic " (config :token))}}
         criteria (config :criteria)]
     (->> (client/search http-client-config criteria)
          (map (partial to-story :customfield_11500))
-         (ordered (config :status-priority)))))
+         (ordered (config :status-priority))
+         (map (partial view-url (config :base-url))))))

@@ -17,13 +17,16 @@
                :title "Story summary here"
                :assignee "Bob Jane"
                :feature {:id "EPC-100"}
-               :status "In Development"}
+               :status "In Development"
+               :view-url "https://jira.com/browse/PROJ-123"}
               {:id "PROJ-123"
                :title "Story summary here"
                :assignee "Bob Jane"
                :feature {:id "EPC-100"}
-               :status "In Development"}]
-             (stories {:status-priority {"in development" 0}})))))
+               :status "In Development"
+               :view-url "https://jira.com/browse/PROJ-123"}]
+             (stories {:status-priority {"in development" 0}
+                       :base-url "https://jira.com"})))))
 
   (testing "returns ordered by status"
     (let [stories [{:id "A" :status "In Development"}
