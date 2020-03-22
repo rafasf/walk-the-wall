@@ -35,4 +35,4 @@
       (is (= [{:id "C" :status "In testing"}
               {:id "A" :status "In Development"}
               {:id "B" :status "To do"}]
-             (ordered {"in testing" 0 "in development" 1 "to do" 2} stories))))))
+             (ordered-by-status {"in testing" 0 "in development" 1 "to do" 2} stories))))))
