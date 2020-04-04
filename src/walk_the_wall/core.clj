@@ -1,8 +1,6 @@
 (ns walk-the-wall.core
   (:use compojure.core)
-  (:require [clojure.pprint :as pp]
-            [clojure.java.io :as io]
-            [clojure.edn :as edn]
+  (:require [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.content-type :refer [wrap-content-type]]
@@ -11,9 +9,13 @@
             [walk-the-wall.config :refer [load-from]]
             [walk-the-wall.tracker.jira.jira :as jira]
             [walk-the-wall.available-projects :refer [available-boards-in]]
-            [walk-the-wall.wall :refer [wall-for]]))
+            [walk-the-wall.wall :refer [wall-for]])
+  (:gen-class))
 
-(def configs (load-from "wall_config.edn"))
+(println (System/getenv "CONFIG_PATH"))
+(def configs (load-from (or
+                          (System/getenv "CONFIG_PATH")
+                          (io/resource "wall_config.edn"))))
 
 (defroutes all-routes
   (GET "/" [] {:status 200

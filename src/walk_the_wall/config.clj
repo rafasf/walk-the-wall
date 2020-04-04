@@ -1,6 +1,5 @@
 (ns walk-the-wall.config
-  (:require [clojure.java.io :as io]
-            [clojure.string :refer [lower-case trim]]
+  (:require [clojure.string :refer [lower-case trim]]
             [clojure.edn :as edn]))
 
 (defn status-priority-from [status-flow]
@@ -11,10 +10,11 @@
        (into {})))
 
 (defn- read-from-env [variable]
+  (print variable)
   (System/getenv variable))
 
 (defn load-from [path]
-  (->> (io/resource path)
+  (->> path
        slurp
        edn/read-string
        (map #(update % :token read-from-env))
