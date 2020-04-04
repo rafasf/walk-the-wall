@@ -10,7 +10,6 @@
        (into {})))
 
 (defn- read-from-env [variable]
-  (print variable)
   (System/getenv variable))
 
 (defn load-from [path]

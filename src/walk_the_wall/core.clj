@@ -12,7 +12,6 @@
             [walk-the-wall.wall :refer [wall-for]])
   (:gen-class))
 
-(println (System/getenv "CONFIG_PATH"))
 (def configs (load-from (or
                           (System/getenv "CONFIG_PATH")
                           (io/resource "wall_config.edn"))))
