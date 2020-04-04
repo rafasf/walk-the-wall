@@ -21,5 +21,9 @@ pom.xml.asc
 
 ### Leiningen ###
 
-# End of https://www.gitignore.io/api/clojure,leiningen
+### IntelliJ ###
+.idea
+
+### Project ###
+resources/wall_config.edn
 
