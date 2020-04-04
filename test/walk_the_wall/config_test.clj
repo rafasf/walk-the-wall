@@ -1,6 +1,7 @@
 (ns walk-the-wall.config-test
   (:require [clojure.test :refer :all])
-  (:require [walk-the-wall.config :refer [load-from status-priority-from]]))
+  (:require [walk-the-wall.config :refer [load-from status-priority-from]]
+            [clojure.java.io :as io]))
 
 (deftest status-priority-from-test
   (testing "creates priority from end to beginning"
@@ -11,7 +12,7 @@
 
 (deftest load-config-from-test
   (testing "config creation"
-    (let [configs (load-from "walls.edn")
+    (let [configs (load-from (io/resource "walls.edn"))
           config (first configs)]
       (is (= (assoc config :status-priority
                            {"done" 0
