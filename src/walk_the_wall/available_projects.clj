@@ -8,9 +8,8 @@
   (html5
    [:head
     [:title "Walk the Wall"]
-    (include-css "//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic")
+    (include-css "//fonts.googleapis.com/css2?family=Roboto:wght@300;700")
     (include-css "//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css")
-    (include-css "//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css")
     (include-css "screen.css")]
    [:form {:action "/projects"}
     [:fieldset {:class "projects"}
