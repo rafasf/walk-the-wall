@@ -15,6 +15,18 @@ body {
     font-weight: 300;
 }
 
+a,
+a:active,
+a:hover,
+a:visited {
+    color: #0074D9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 .projects {
     margin: 0 auto;
     width: 300px;
@@ -44,6 +56,6 @@ body {
 
 .card-status {
     color: #001F3F;
-    background-color: #7FDBFF;
+        background-color: #7FDBFF;
     padding: 5px 20px;
 }

@@ -6,7 +6,7 @@
    [:article {:class "card"}
     [:p (get-in story [:feature :name] "Featureless")]
     [:h1 (story :title)]
-    [:h4 (str (story :id) ", " (story :assignee))]
+    [:h4 [:a {:href (story :view-url) :target "_blank"} (story :id)] ", " (story :assignee)]
     [:span {:class "card-status"} (story :status)]]])
 
 (defn cards-for [stories]
