@@ -24,10 +24,11 @@
 
   :eftest {:multithread? :false}
 
-  :prep-tasks [["v" "cache" "src" "edn"]]
   :release-tasks [["vcs" "assert-committed"]
-                  ["v" "update"]]
+                  ["v" "update"]
+                  ["v" "push-tags"]]
 
   :profiles {
-             :test {:dependencies [[http-kit.fake "0.2.1"]]}}
+             :test {:dependencies [[http-kit.fake "0.2.1"]]}
+             :uberjar {:aot :all}}
   :repl-options {:init-ns walk-the-wall.core})
