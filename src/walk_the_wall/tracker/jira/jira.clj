@@ -34,8 +34,6 @@
         epic-field-name (client/epic-field-name http-client-config)
         criteria (config :criteria)
         full-config (assoc config :epic-field-name epic-field-name)]
-    (println (str "Epic field name: ", epic-field-name))
-    (println (str "Full config: ", full-config))
     (->> (client/search http-client-config criteria)
          (map (to-story full-config))
          (ordered-by-status (config :status-priority)))))

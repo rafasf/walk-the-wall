@@ -12,23 +12,24 @@
             [walk-the-wall.wall :refer [wall-for]])
   (:gen-class))
 
-(def configs (load-from (or
-                          (System/getenv "CONFIG_PATH")
-                          (io/resource "wall_config.edn"))))
+(defn load-configs []
+  (load-from (System/getenv "CONFIG_PATH")))
 
-(defroutes all-routes
-  (GET "/" [] {:status 200
-               :headers {"Content-Type" "text/html"}
-               :body (available-boards-in configs)})
-  (GET "/projects" [board] {:status 200
-                            :headers {"Content-Type" "text/html"}
-                            :body (wall-for (jira/stories (->> configs
-                                                              (filter #(= board (get % :name)))
-                                                              first)))}))
+
+(defn define-routes [configs]
+  (defroutes all-routes
+    (GET "/" [] {:status 200
+                 :headers {"Content-Type" "text/html"}
+                 :body (available-boards-in configs)})
+    (GET "/projects" [board] {:status 200
+                              :headers {"Content-Type" "text/html"}
+                              :body (wall-for (jira/stories (->> configs
+                                                                (filter #(= board (get % :name)))
+                                                                first)))})))
 
 (defn -main []
   (jetty/run-jetty
-   (-> (handler/site all-routes)
+   (-> (handler/site (define-routes (load-configs)))
        (wrap-resource "public")
        (wrap-content-type)
        (wrap-not-modified))
