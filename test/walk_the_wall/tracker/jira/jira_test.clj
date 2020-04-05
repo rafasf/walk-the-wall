@@ -7,12 +7,13 @@
   {:key "PROJ-123"
    :fields {:assignee {:displayName "Bob Jane"}
             :status {:name "In Development"}
-            :customfield_11500 "EPC-100"
+            :custom-epic-field-name "EPC-100"
             :summary "Story summary here"}})
 
 (deftest project-stories
   (testing "returns stories"
-    (with-redefs [search (fn [cfg crit] [an-issue an-issue])]
+    (with-redefs [search (fn [cfg crit] [an-issue an-issue])
+                  epic-field-name (fn [cfg] :custom-epic-field-name)]
       (is (= [{:id "PROJ-123"
                :title "Story summary here"
                :assignee "Bob Jane"

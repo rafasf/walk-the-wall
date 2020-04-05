@@ -24,15 +24,19 @@
   (sort-by (partial status-name status-priority) stories))
 
 (defn to-story [config]
-  (let [story-from-issue (partial issue-to-story :customfield_11500)
+  (let [story-from-issue (partial issue-to-story (config :epic-field-name))
         with-view-url (partial view-url (config :base-url))]
     (comp with-view-url story-from-issue)))
 
 (defn stories [config]
   (let [http-client-config {:base-url (config :base-url)
                             :headers  {"Authorization" (str "Basic " (config :token))}}
-        criteria (config :criteria)]
+        epic-field-name (client/epic-field-name http-client-config)
+        criteria (config :criteria)
+        full-config (assoc config :epic-field-name epic-field-name)]
+    (println (str "Epic field name: ", epic-field-name))
+    (println (str "Full config: ", full-config))
     (->> (client/search http-client-config criteria)
-         (map (to-story config))
+         (map (to-story full-config))
          (ordered-by-status (config :status-priority)))))
 

@@ -9,7 +9,7 @@
   "{ \"issues\": [ { \"fields\": { \"assignee\": { \"displayName\": \"person\" }, \"status\": { \"name\": \"testing\" }, \"summary\": \"summary\" } } ] }")
 
 (def http-client-config
-  {:base-url "http://jira.local/rest/api/latest"
+  {:base-url "http://jira.local"
    :headers {"Authorization" "Basic token!"}})
 
 (deftest search-test
@@ -28,7 +28,7 @@
 
 (deftest epic-field
   (testing "returns field name"
-    (with-fake-http [{:url (str (http-client-config :base-url) "/field")
+    (with-fake-http [{:url "http://jira.local/rest/api/latest/field"
                       :method :get
                       :headers (http-client-config :headers)}
                      {:status 200
