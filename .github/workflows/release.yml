@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Test & Build
 
     runs-on: ubuntu-latest
 
@@ -17,10 +18,18 @@ jobs:
       run: lein eftest
     - name: Build artefact
       run: lein uberjar
+
+  release:
+    name: Release
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Publish image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: rafasf
+        name: rafasf/walk-the-wall
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tag_semver: true
