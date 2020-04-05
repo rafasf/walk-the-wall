@@ -44,14 +44,13 @@ Since you need to provide the **configuration file** and at least a couple of
 
 1. Create the configuration file, e.g. `wall_config.edn`
 2. Create the `token(s)` using your user name and password
-    
-```
+
+```dockerfile
 FROM rafasf/walk-the-wall:latest
 
 ENV CONFIG_PATH /app_config/wall_config.edn
 
-USER 1001
-COPY ./wall_config.edn /app_config
+COPY --chown=1001:1001 ./resources/wall_config.edn /app_config/
 ```
 
 Deploy in your internal network, providing the **environment variables** for
@@ -66,8 +65,9 @@ each of the product or projects you've configured.
 docker run --user 1001 \
     --env CONFIG_PATH=/app_config/wall_config.edn
     --env ENV_VAR_WITH_TOKEN=<token-value> \
-    -v `pwd`/resources:/app_config
-    local/walk-the-wall:0.1.0
+    --env OTHER_TOKEN=<other-token-value> \
+    -v `pwd`:/app_config/
+    rafasf/walk-the-wall:latest
 ```
 
 ## :nerd_face: Story Card
